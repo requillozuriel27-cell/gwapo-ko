@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealFlow Clinic | Green & SkyBlue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #4db6ac; /* More Greener */
+            --sky-blue: #81d4fa;    /* Sky Blue */
+            --accent-orange: #ff7043;
+            --text-dark: #1a1a1a;
+            /* Updated Gradient for more Green and SkyBlue impact */
+            --bg-gradient: linear-gradient(135deg, #a7ffeb 0%, #81d4fa 100%);
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            width: 100%;
+            max-width: 1000px;
+            min-height: 85vh;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- BOLD VISIBLE NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 35px;
+            background: #ffffff;
+            border-bottom: 3px solid var(--sky-blue);
+        }
+
+        .logo { 
+            font-weight: 900; 
+            color: var(--primary-green); 
+            font-size: 1.5rem; 
+            letter-spacing: -1px;
+        }
+
+        .nav-links { display: flex; gap: 15px; }
+
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            font-size: 1.05rem; 
+            font-weight: 800; /* SUPER BOLD */
+            padding: 10px 18px;
+            border-radius: 12px;
+            transition: 0.2s ease;
+        }
+
+        .active-link { 
+            background: var(--primary-green) !important; 
+            color: white !important; 
+            box-shadow: 0 4px 12px rgba(77, 182, 172, 0.4);
+        }
+
+        /* --- CONTENT AREA --- */
+        .content-area { 
+            flex-grow: 1; 
+            padding: 35px; 
+            overflow-y: auto; 
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+        }
+
+        /* HOME / APPOINTMENT SECTION */
+        .doc-section {
+            text-align: center;
+            animation: slideUp 0.5s ease;
+        }
+        
+        .doc-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 6px solid var(--sky-blue);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        /* CONTACT SECTION */
+        .contact-box {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid var(--sky-blue);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 800;
+            border-radius: 15px;
+        }
+
+        .contact-link:hover { background: #f0fbff; }
+        .contact-link i { font-size: 2rem; color: var(--primary-green); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 20px; gap: 20px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+            .nav-links a { font-size: 0.95rem; padding: 8px 12px; }
+            .content-area { padding: 20px; }
+        }
+
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <nav>
+            <div class="logo"><i class="fas fa-notes-medical"></i> HEALFLOW</div>
+            <div class="nav-links">
+                <a href="?view=home" class="{% if request.GET.view == 'home' %}active-link{% endif %}">HOME</a>
+                <a href="?fetch_data=1" class="{% if show_full_screen %}active-link{% endif %}">FAQ</a>
+                <a href="?view=contact" class="{% if request.GET.view == 'contact' %}active-link{% endif %}">CONTACT</a>
+            </div>
+        </nav>
+
+        <div class="content-area">
+            
+            {% if request.GET.view == 'contact' %}
+            <div class="doc-section">
+                <h1 style="font-weight: 900; color: var(--primary-green);">Contact Us</h1>
+                <div class="contact-box">
+                    <a href="mailto:support@gmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        <div style="text-align: left;">
+                            <small style="color: #888;">EMAIL</small><br>support@gmail.com
+                        </div>
+                    </a>
+                    <a href="tel:+1234567890" class="contact-link">
+                        <i class="fas fa-phone-square-alt"></i>
+                        <div style="text-align: left;">
+                            <small style="color: #888;">PHONE</small><br>+1 (234) 567-890
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            {% elif request.GET.view == 'home' %}
+            <div class="doc-section">
+                <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg" class="doc-img" alt="Doctor">
+                <h2 style="font-weight: 900; margin: 0;">Dr. Mary Jones</h2>
+                <p style="font-weight: 600; color: #555;">Consult with our lead Cardiologist</p>
+                <button style="background: var(--accent-orange); color: white; border: none; padding: 20px 45px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; cursor: pointer; margin-top: 25px; box-shadow: 0 10px 20px rgba(255, 112, 67, 0.3);">
+                    BOOK APPOINTMENT NOW
+                </button>
+            </div>
+
+            {% elif show_full_screen %}
+            <div style="animation: slideUp 0.4s ease;">
+                <h2 style="font-weight: 900; border-left: 10px solid var(--primary-green); padding-left: 15px;">Support Center</h2>
+                {% for post in json_posts %}
+                <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; border-bottom: 4px solid var(--sky-blue);">
+                    <strong style="text-transform: uppercase; font-size: 0.9rem; color: var(--primary-green);">{{ post.title }}</strong>
+                    <p style="margin: 8px 0 0 0; color: #444; font-weight: 500;">{{ post.body }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% else %}
+            <div style="display: flex; flex-direction: column; align-items: center; text-align: center; animation: slideUp 0.5s ease;">
+                <h1 style="font-weight: 900; font-size: 3rem; color: var(--text-dark); line-height: 1;">Wellness at Your<br><span style="color: var(--primary-green);">Fingertips</span></h1>
+                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062256.png" style="width: 280px; margin: 30px 0;" alt="Heart">
+                <button style="background: var(--primary-green); color: white; border: none; padding: 18px 50px; border-radius: 50px; font-weight: 900; font-size: 1.2rem; cursor: pointer; box-shadow: 0 10px 25px rgba(77, 182, 172, 0.4);">
+                    GET STARTED
+                </button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; gap: 40px; background: white; padding: 15px 45px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <i class="fas fa-heart" style="color: var(--primary-green); font-size: 1.5rem;"></i>
+        <i class="fas fa-star" style="color: var(--sky-blue); font-size: 1.5rem;"></i>
+        <i class="fas fa-plus-circle" style="color: var(--accent-orange); font-size: 1.5rem;"></i>
+    </div>
+
+</body>
+</html>
