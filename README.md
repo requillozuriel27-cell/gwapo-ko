@@ -12,3 +12,8 @@ https://drive.google.com/file/d/1c79OikU5XSUR6sxM7T_6UBXpzCCB3rjm/view?usp=shari
 Activity 3
 
 https://drive.google.com/file/d/1YnC7mM1XqgIzyYKi8rc1kezycd0xm41_/view?usp=sharing
+
+
+Sumpay nga video sa Activity 3
+
+https://drive.google.com/file/d/1j55vE1PdPyHJ9U5wrOYvwtPW3JcBw7hJ/view?usp=sharing
