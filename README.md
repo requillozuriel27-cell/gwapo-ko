@@ -19,4 +19,6 @@ Sumpay nga video sa Activity 3
 https://drive.google.com/file/d/1j55vE1PdPyHJ9U5wrOYvwtPW3JcBw7hJ/view?usp=sharing
 
 Activity 4
-![Uploading Screenshot 2026-02-16 095804.png…]()
+
+<img width="960" height="592" alt="Screenshot 2026-02-16 095804" src="https://github.com/user-attachments/assets/7c3c46dd-4e8b-420d-954a-0799595782d2" />
+
