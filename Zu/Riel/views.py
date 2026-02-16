@@ -1,24 +1,44 @@
-
 import requests
 from django.shortcuts import render
+from django.contrib import messages
+
+API_URL = "https://jsonplaceholder.typicode.com/posts"
+REQUEST_TIMEOUT = 5  # seconds
+
 
 def home(request):
-    json_posts = []
+    posts = []
     show_full_screen = False
-    
-    # This triggers when you tap "START NOW"
-    if 'fetch_data' in request.GET:
-        # The specific JSON link you requested
-        url = "https://jsonplaceholder.typicode.com/posts"
-        try:
-            response = requests.get(url)
-            # Fetching the list of posts from the API
-            json_posts = response.json() 
-            show_full_screen = True
-        except Exception as e:
-            print(f"Connection Error: {e}")
 
-    return render(request, 'home.html', {
-        'json_posts': json_posts, 
+    # Triggered when user clicks "START NOW"
+    if request.GET.get('fetch_data'):
+        try:
+            response = requests.get(API_URL, timeout=REQUEST_TIMEOUT)
+            response.raise_for_status()  # Raises HTTPError for bad responses
+
+            data = response.json()
+
+            # Safety check: ensure response is a list
+            if isinstance(data, list):
+                posts = data[:10]  # Limit to first 10 posts (clean UI)
+                show_full_screen = True
+            else:
+                messages.error(request, "Unexpected API response format.")
+
+        except requests.exceptions.Timeout:
+            messages.error(request, "The request timed out. Please try again.")
+        except requests.exceptions.ConnectionError:
+            messages.error(request, "Connection error. Check your internet.")
+        except requests.exceptions.HTTPError as e:
+            messages.error(request, f"HTTP error: {e}")
+        except ValueError:
+            messages.error(request, "Invalid JSON response.")
+        except Exception as e:
+            messages.error(request, f"Unexpected error: {e}")
+
+    context = {
+        'json_posts': posts,
         'show_full_screen': show_full_screen
-    })
+    }
+
+    return render(request, 'home.html', context)
